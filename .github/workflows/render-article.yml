@@ -23,10 +23,9 @@ jobs:
     - uses: actions/checkout@v2
 
     - name: Render document
-      uses: florianbussmann/rmarkdown-action@v1.2
+      uses: florianbussmann/rmarkdown-action@v1.3
       with:
         input_file: article.Rmd
-        output_format: pdf_document
         dependencies: stevetemplates
 
     # Push the article's PDF to workflow page
