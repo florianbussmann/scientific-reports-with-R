@@ -1,0 +1,36 @@
+name: render-article
+
+# Only run this when the main branch changes
+on:
+  push:
+    branches:
+    - main
+  pull_request:
+    branches:
+    - main
+    # If your git repository has the Jupyter Book within some-subfolder next to
+    # unrelated files, you can make this run only if a file within that specific
+    # folder has been modified.
+    #
+    # paths:
+    # - docs/**
+
+# This job installs dependencies, builds the book, and pushes it to `gh-pages`
+jobs:
+  render-article:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Render document
+      uses: happyRip/rmarkdown-action@v1.1
+      with:
+        input_file: article.Rmd
+        output_format: pdf_document
+
+    # Push the article's PDF to workflow page
+    - name: Upload PDF artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: PDF
+        path: article.pdf
